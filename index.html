@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>anupkarki</title>
+  </head>
+  <body>
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand font-weight-bold text-uppercase" href="index.html">Anup Karki</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.linkedin.com/in/anup-karki-ba7088119/">About</a>
+      </li>
+    </ul>
+  </div>
+ </nav>
+</div>
+
+  	<div class="container">
+     <div class="jumbotron">
+       <img class="rounded-circle" id="profileImage" height="125" width="125">
+       <h1 class="display-4" id="fullName"></h1>
+       <button type="button" class="btn btn-primary mt-2">
+       Follower <span id="followerInformation" class="badge badge-light"></span>
+       </button>
+       <p class="lead mt-3" id="myBio"></p>
+       <hr class="my-4">
+       <p>I am Doing my bachelor degree in (BACHELOR IN INFORMATION TECHNOLOGY) from ARYAN SCHOOL OF ENGINEERING.</p>
+       <a class="btn btn-primary btn-sm" id="githubLink" role="button">Check Me On Github</a>
+    </div>
+   </div>
+
+   <div class="container">
+    <h1 class="text-center mt-4 mb-4 text-uppercase">My Projects</h1>
+     <div class="row" id="reposGit">
+
+     </div>
+   </div>
+
+   <div class="container">
+      <div class="footer__section">
+        <p style="background-color: #e9ecef;" class="text-center text-dark pt-3 pb-3">&copy 2021 Design by Anup Karki</p>
+      </div>
+   </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+      fetch("https://api.github.com/users/anupjungkarki")
+     .then(response => response.json())
+     .then(function(data){
+      let followerCount = data['followers']
+      let followerInfo = `${followerCount}`
+      document.getElementById('profileImage').src=data['avatar_url']
+      document.getElementById('fullName').textContent=data['name']
+      document.getElementById('myBio').textContent=data['bio']
+      document.getElementById('githubLink').href=data['html_url']
+      document.getElementById('followerInformation').textContent=followerInfo
+     })
+
+
+  $(document).ready(function(){
+  fetch("https://api.github.com/users/anupjungkarki/repos")
+   .then(response => response.json())
+   .then (function(repos){
+    populate(repos);
+    })
+  });
+
+var result;
+function populate(response){
+result= response.map((index)=>{
+    return `<div class="col mb-4">
+               <div class="card">
+               <div class="card-body">
+              <h5 class="card-title">${index.name}</h5>
+              </div>
+            </div>
+          </div>`
+
+  }) 
+  $('#reposGit').append(result);
+ }
+    </script>
+  </body>
+</html>
